@@ -49,6 +49,20 @@
     if (error) throw error;
     return Boolean(data?.is_admin);
   };
+<<<<<<< HEAD
+=======
+  const setAdminVisibility = async () => {
+    try {
+      const visible = await isAdmin();
+      document.querySelectorAll('.admin-trigger').forEach(button => {
+        button.hidden = !visible;
+        button.setAttribute('aria-hidden', String(!visible));
+      });
+    } catch {
+      document.querySelectorAll('.admin-trigger').forEach(button => { button.hidden = true; button.setAttribute('aria-hidden', 'true'); });
+    }
+  };
+>>>>>>> 05c51aa (Upload AKTU notes website)
   const setAuthError = message => { const error = el('#adminAuthError'); error.textContent = message; error.hidden = !message; };
   const authDialog = el('#adminAuthDialog');
   el('#adminAuthForm').onsubmit = async event => {
@@ -90,6 +104,15 @@
   document.querySelectorAll('.admin-trigger').forEach(button => button.onclick = async () => {
     try { if (await isAdmin()) { renderManager(); el('#adminDialog').showModal(); } else { setAuthError(''); el('#adminPassword').value = ''; authDialog.showModal(); el('#adminEmail').focus(); } } catch (error) { fail(error); }
   });
+<<<<<<< HEAD
+=======
+  await setAdminVisibility();
+  client.auth.onAuthStateChange(() => { setTimeout(setAdminVisibility, 0); });
+  if (window.location.hash === '#admin') {
+    authDialog.showModal();
+    el('#adminEmail').focus();
+  }
+>>>>>>> 05c51aa (Upload AKTU notes website)
   el('#addSubjectForm').onsubmit = async event => {
     event.preventDefault(); const form = new FormData(event.currentTarget); const year = records.years.find(item => item.name === form.get('semester'));
     if (!year) return toast('Select a valid year.');
