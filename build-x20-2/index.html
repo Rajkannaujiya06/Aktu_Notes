@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Organized study notes for every semester." />
+    <title>B.TechAKTU Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="overrides.css" />
+  </head>
+  <body>
+    <div class="page-glow glow-one"></div><div class="page-glow glow-two"></div>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="AKTU Notes home"><span class="brand-mark">RJ</span><span>AKTU Notes</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#notes">Explore notes</a><a href="#how-it-works">How it works</a>
+      </nav>
+      <div class="nav-actions"><button class="dark-button admin-trigger">Admin portal <span>↗</span></button></div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="academy-badge">▣ &nbsp; AKTU B.TECH OFFICIAL ACADEMY</p>
+          <p class="eyebrow"><span></span> Built for AKTU students</p>
+          <h1>B.TechAKTU<br /><em>Notes.</em></h1>
+          <p class="hero-description">Year-wise notes for AKTU B.Tech students—organised so you can spend less time searching and more time learning.</p>
+          <div class="hero-actions"><a href="#notes" class="primary-cta">Explore notes <span>↓</span></a></div>
+          <div class="hero-proof"><div class="avatars"><b>R</b><b>J</b><b>+</b></div><p><strong>Your study library</strong><br />ready for your notes</p></div>
+        </div>
+        <div class="hero-art" aria-label="Decorative collection of study notes"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><article class="floating-note note-primary"><div class="note-top"><span>AKTU B.TECH</span><i>01</i></div><h3>Find notes.<br />Study smarter.</h3><div class="code-lines"><span></span><span></span><span></span></div><div class="note-footer"><b>NOTES</b><span>All years</span></div></article><article class="floating-note note-yellow"><div class="scribble">∫</div><h4>Calculus</h4><p>Limits · Derivatives<br />Integrals</p><span class="mini-stamp">NOTES</span></article><article class="floating-note note-pink"><p>“Learn it.<br />Understand it.<br /><u>Own it.</u>”</p><small>— B.Tech journey</small></article><div class="star star-a">✦</div><div class="star star-b">✦</div></div>
+      </section>
+
+      <section class="trust-strip"><p>Everything you need to stay on top of your studies.</p><div><span>✦ Organised study notes</span><span>↗ Clear PDF downloads</span><span>⌁ Year-wise material</span></div></section>
+
+      <section class="notes-section" id="notes">
+        <div class="section-head"><div><p class="eyebrow"><span></span> Find your material</p><h2>Start with a subject.</h2></div><button class="filter-toggle" id="filterToggle">Filters <span>⌄</span></button></div>
+        <div class="search-row"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search notes, subjects, or topics…" /><kbd>⌘ K</kbd></label></div><div id="semesterPills" hidden></div><div class="semester-gateway"><div class="gateway-copy"><span>Browse by year</span><p>Or select a path to see all its subjects and units.</p></div><div class="year-grid" id="yearGrid"></div><div id="yearContent" class="year-content" aria-live="polite"></div></div>
+        <div class="filter-panel" id="filterPanel"><label>Subject <select id="subjectFilter"><option value="All">All subjects</option></select></label><label>Sort <select id="sortNotes"><option value="popular">Most popular</option><option value="recent">Recently added</option><option value="title">A–Z</option></select></label></div>
+        <div class="notes-meta"><p id="notesCount">Showing notes</p></div>
+        <div class="notes-grid" id="notesGrid"></div>
+        <button class="show-more" id="showMore">Show more notes <span>↓</span></button>
+      </section>
+
+
+      <section class="how-section" id="how-it-works"><p class="eyebrow"><span></span> A calmer way to study</p><h2>Made for the <em>real</em><br />student routine.</h2><div class="steps"><article><span>01</span><h3>Pick your year</h3><p>Jump straight to the subjects on your current timetable.</p></article><article><span>02</span><h3>Find the right notes</h3><p>Search a topic or browse clearly labelled, useful material.</p></article><article><span>03</span><h3>Study your way</h3><p>Open material online or download the PDF for revision.</p></article></div></section>
+    </main>
+    <footer><a class="brand" href="#home"><span class="brand-mark">RJ</span><span>AKTU Notes</span></a><p>Built for AKTU B.Tech students.</p><span>© 2026 B.TechAKTU Notes</span></footer>
+
+    <dialog id="subjectDialog" class="modal subject-modal"><button class="close-modal" data-close>×</button><p class="eyebrow"><span></span> Browse material</p><h3 id="subjectDialogTitle">Subjects</h3><p class="modal-sub">Choose a subject to see its notes and units.</p><div id="subjectPicker" class="subject-picker"></div></dialog>
+    <dialog id="adminAuthDialog" class="modal admin-auth-modal"><button class="close-modal" data-close>×</button><p class="eyebrow"><span></span> Restricted access</p><h3>Admin sign in</h3><p class="modal-sub">Use the administrator account configured in Supabase to manage subjects, units and notes.</p><form id="adminAuthForm" class="upload-form"><label>Email<input id="adminEmail" type="email" required autocomplete="email" /></label><label>Password<input id="adminPassword" type="password" required autocomplete="current-password" /></label><p id="adminAuthError" class="admin-auth-error" hidden></p><button class="primary-cta" type="submit">Open admin portal <span>→</span></button><button id="resendConfirmation" class="resend-confirmation" type="button">Resend confirmation email</button><p class="modal-sub">First setup? <a id="adminSignup" href="#">Create this account</a>, then give it admin access in Supabase.</p></form></dialog>
+    <dialog id="noteDialog" class="modal"><button class="close-modal" data-close>×</button><div id="noteViewer"></div></dialog>
+    <dialog id="unitDownloadDialog" class="modal unit-download-dialog"><button class="close-modal" data-close>×</button><p class="eyebrow"><span></span> Unit material</p><h3 id="unitDownloadTitle">PDF ready</h3><p class="modal-sub">Download this unit's study material.</p><button id="unitDownloadButton" class="primary-cta" type="button">Download PDF <span>↓</span></button></dialog>
+    <dialog id="adminDialog" class="modal admin-modal"><button class="close-modal" data-close>×</button><p class="eyebrow"><span></span> Admin portal</p><h3>Manage year subjects</h3><p class="modal-sub">The four Year cards are fixed. Select a Year to add or delete the subjects shown inside that card.</p><details class="curriculum-manager" open><summary>Year &amp; subject manager <span>⌄</span></summary><form id="addSemesterForm" class="legacy-hidden" aria-hidden="true"><input name="semester" /></form><div id="curriculumList" class="curriculum-list"></div><form id="addSubjectForm" class="inline-form subject-form"><label class="admin-field-label">Year<select id="newSubjectSemester" name="semester" required></select></label><label class="admin-field-label subject-input">Subject<input required name="subject" placeholder="e.g. Engineering Mathematics" /></label><button type="submit">Add subject</button></form><form id="addUnitForm" class="inline-form unit-form"><label class="admin-field-label">Year<select id="newUnitSemester" name="semester" required></select></label><label class="admin-field-label subject-input">Subject<select id="newUnitSubject" name="subject" required></select></label><label class="admin-field-label subject-input">Unit<input required name="unit" placeholder="e.g. Unit 1: Basics" /></label><button type="submit">Add unit</button></form></details><div class="upload-divider"></div><h4>Upload a note</h4><form id="uploadForm" class="upload-form"><label>Title<input required name="title" placeholder="e.g. Operating Systems — Unit 1" /></label><div class="split-input"><label>Year<select id="uploadSemester" name="semester" required></select></label><label>Subject<select id="uploadSubject" name="subject" required></select></label></div><label>Unit<select id="uploadUnit" name="unit"><option value="">No specific unit</option></select></label><label>PDF file<input id="uploadFile" required name="file" type="file" accept="application/pdf" /></label><div id="uploadStatus" class="upload-status" aria-live="polite" hidden><div><span id="uploadFileName"></span><b id="uploadPercent">0%</b></div><div class="upload-progress"><i id="uploadProgressBar"></i></div><small id="uploadMessage"></small></div><button class="primary-cta" type="submit">Upload note <span>↑</span></button></form></dialog>
+    <div id="toast" role="status"></div>
+    <script src="app.js"></script>
+    <script>
+      /* Persist uploaded-note metadata in this browser so refreshes do not clear the catalogue. */
+      (() => {
+        try {
+          const savedNotes = JSON.parse(localStorage.getItem('aktu-notes-library') || '[]');
+          if (Array.isArray(savedNotes) && savedNotes.length) notes = [...savedNotes, ...notes];
+        } catch { localStorage.removeItem('aktu-notes-library'); }
+      })();
+    </script>
+    <script>
+      /* Keep the hero introduction first; place its supporting study visual after Year browsing. */
+      (() => {
+        const proof = document.querySelector('.hero-proof');
+        const artwork = document.querySelector('.hero-art');
+        const strip = document.querySelector('.trust-strip');
+        const notesSection = document.querySelector('.notes-section');
+        if (!proof || !artwork || !strip || !notesSection) return;
+        const supportingSection = document.createElement('section');
+        supportingSection.className = 'after-cards-study';
+        supportingSection.setAttribute('aria-label', 'Study resources overview');
+        supportingSection.append(proof, artwork, strip);
+        notesSection.after(supportingSection);
+      })();
+    </script>
+    <script>
+      const yearGrid = document.querySelector('#yearGrid');
+      function showSubjectPicker(semester) {
+        const subjects = Object.keys(curriculum[semester] || {});
+        const number = semester.match(/\d+/)?.[0];
+        const labels = { '1': '1st Year', '2': '2nd Year', '3': '3rd Year', '4': '4th Year' };
+        document.querySelector('#subjectDialogTitle').textContent = labels[number] || `Year ${number || ''}`;
+        document.querySelector('#subjectPicker').innerHTML = subjects.map((subject, index) => {
+          const units = curriculum[semester][subject] || [];
+          return `<button class="subject-choice" data-semester="${semester}" data-subject="${subject}"><span class="subject-index">${String(index + 1).padStart(2, '0')}</span><span><b>${subject}</b><small>${units.length ? units.join(' · ') : 'Units coming soon'}</small></span><i>→</i></button>`;
+        }).join('') || '<p class="empty-state">No subjects have been added for this semester yet.</p>';
+        document.querySelector('#subjectDialog').showModal();
+      }
+      function renderRoadmap() {
+        const accents = ['blue', 'green', 'amber', 'purple'];
+        yearGrid.innerHTML = sems().map((semester, index) => {
+          const subjects = Object.keys(curriculum[semester] || {});
+          return `<button class="year-card ${accents[index % accents.length]}" data-semester="${semester}"><span class="roadmap-number">${String(index + 1).padStart(2, '0')}</span><span class="year-icon">✦</span><h3>${semester}</h3><p>${subjects.length ? subjects.slice(0, 3).join(' · ') : 'Add subjects from Admin Portal'}</p><b>${subjects.length} subject${subjects.length === 1 ? '' : 's'} <i>→</i></b></button>`;
+        }).join('');
+        yearGrid.querySelectorAll('.year-card').forEach(card => {
+          const number = card.dataset.semester.match(/\d+/)?.[0];
+          const labels = { '1': '1st Year', '2': '2nd Year', '3': '3rd Year', '4': '4th Year' };
+          card.querySelector('h3').textContent = labels[number] || `Year ${number || ''}`;
+        });
+      }
+      function showYearSubjects(semester) {
+        const subjects = Object.entries(curriculum[semester] || {});
+        const number = semester.match(/\d+/)?.[0];
+        const labels = { '1': '1st Year', '2': '2nd Year', '3': '3rd Year', '4': '4th Year' };
+        document.querySelectorAll('.card-subjects').forEach(content => content.remove());
+        document.querySelectorAll('.year-card').forEach(card => card.classList.remove('expanded'));
+        const selectedCard = [...yearGrid.querySelectorAll('.year-card')].find(card => card.dataset.semester === semester);
+        selectedCard.classList.add('expanded');
+        selectedCard.insertAdjacentHTML('beforeend', `<div class="card-subjects"><span class="inside-label">${labels[number] || `Year ${number || ''}`} subjects</span>${subjects.map(([subject, units]) => `<details><summary>${subject}<span>+</span></summary><div class="inline-units">${units.length ? units.map(unit => `<button data-note-subject="${subject}" data-note-unit="${unit}">${unit} <i>→</i></button>`).join('') : '<small>No units added yet.</small>'}</div></details>`).join('') || '<p>No subjects have been added yet.</p>'}</div>`);
+      }
+      yearGrid.addEventListener('click', event => { if (event.target.closest('.card-subjects')) return; const card = event.target.closest('.year-card'); if (card) showYearSubjects(card.dataset.semester); });
+      yearGrid.addEventListener('click', event => {
+        const unitButton = event.target.closest('[data-note-subject]');
+        if (!unitButton) return;
+        event.preventDefault();
+        const { noteSubject, noteUnit } = unitButton.dataset;
+        const year = unitButton.closest('.year-card').dataset.semester;
+        const matchingNotes = notes.filter(note => note.semester === year && note.subject === noteSubject && (!noteUnit || note.unit === noteUnit || !note.unit));
+        if (!matchingNotes.length) return toast('Is unit ke liye abhi PDF upload nahi hai.');
+        const note = matchingNotes[0];
+        document.querySelector('#unitDownloadButton').onclick = () => {
+          if (typeof window.downloadNoteById === 'function') return window.downloadNoteById(note.id);
+          const fallback = new Blob([`B.TechAKTU Notes\n\n${note.title}`], { type: 'application/pdf' });
+          const url = note.fileData || URL.createObjectURL(note.file || fallback);
+          const link = Object.assign(document.createElement('a'), { href: url, download: `${note.title}.pdf` });
+          link.click();
+          if (!note.fileData) setTimeout(() => URL.revokeObjectURL(url), 600);
+          toast(`Download started: ${note.title}`);
+          document.querySelector('#unitDownloadDialog').close();
+        };
+        document.querySelector('#unitDownloadDialog').showModal();
+      });
+      yearGrid.addEventListener('click', event => { const noteButton = event.target.closest('[data-open-note]'); if (noteButton) openNote(noteButton.dataset.openNote); });
+      document.querySelector('#yearContent').addEventListener('click', event => { if (event.target.id === 'closeYearContent') { event.currentTarget.classList.remove('open'); event.currentTarget.innerHTML = ''; return; } const unit = event.target.closest('[data-note-subject]'); if (unit) { document.querySelector('#searchInput').value = unit.dataset.noteSubject; document.querySelector('#searchInput').dispatchEvent(new Event('input')); } });
+      document.querySelector('#searchInput').addEventListener('input', event => { const query = event.target.value.trim().toLowerCase(); if (!query) return; const matches = notes.filter(note => `${note.title} ${note.subject} ${note.unit}`.toLowerCase().includes(query)); document.querySelector('#yearContent').innerHTML = `<div class="year-content-head"><b>Search results</b></div><div class="search-result-list">${matches.map(note => `<button data-search-note="${note.id}"><b>${note.title}</b><span>${note.subject} · ${note.unit}</span><i>Open →</i></button>`).join('') || '<p>No matching material found.</p>'}</div>`; document.querySelector('#yearContent').classList.add('open'); });
+      document.querySelector('#yearContent').addEventListener('click', event => { const result = event.target.closest('[data-search-note]'); if (result) openNote(result.dataset.searchNote); });
+      document.querySelector('#subjectPicker').addEventListener('click', event => { const choice = event.target.closest('.subject-choice'); if (!choice) return; active = choice.dataset.semester; document.querySelector('#subjectFilter').value = choice.dataset.subject; showAll = true; renderManager(); renderNotes(); document.querySelector('#subjectDialog').close(); document.querySelector('#notes').scrollIntoView({ behavior: 'smooth' }); });
+      const originalRenderManager = renderManager; renderManager = function () { originalRenderManager(); renderRoadmap(); };
+      renderRoadmap();
+    </script>
+    <script>
+      /* Admin UI uses fixed Year cards, while preserving existing browser-saved subjects and units. */
+      (() => {
+        const labelYear = value => {
+          const number = String(value).match(/\d+/)?.[0];
+          return ({ '1': '1st Year', '2': '2nd Year', '3': '3rd Year', '4': '4th Year' })[number] || `Year ${number || ''}`;
+        };
+        const previousRenderManager = renderManager;
+        renderManager = function () {
+          previousRenderManager();
+          ['#newSubjectSemester', '#newUnitSemester', '#uploadSemester'].forEach(selector => {
+            document.querySelectorAll(`${selector} option`).forEach(option => { option.textContent = labelYear(option.value); });
+          });
+          document.querySelectorAll('#curriculumList .curriculum-row').forEach(row => {
+            const title = row.querySelector('b');
+            if (title) title.textContent = labelYear(title.textContent);
+          });
+        };
+        renderManager();
+      })();
+    </script>
+    <script>
+      /* A note view always offers a working PDF download, including an uploaded file. */
+      (() => {
+        const originalOpenNote = openNote;
+        openNote = function (id) {
+          originalOpenNote(id);
+          const note = notes.find(item => item.id === Number(id));
+          const downloadButton = document.querySelector('#downloadNote');
+          if (!note || !downloadButton) return;
+          downloadButton.onclick = () => {
+            const fallback = new Blob([`B.TechAKTU Notes\n\n${note.title}\n${note.subject}${note.unit ? ` — ${note.unit}` : ''}`], { type: 'application/pdf' });
+            const url = note.fileData || URL.createObjectURL(note.file && note.file.size ? note.file : fallback);
+            const link = Object.assign(document.createElement('a'), { href: url, download: `${note.title}.pdf` });
+            link.click();
+            if (!note.fileData) setTimeout(() => URL.revokeObjectURL(url), 600);
+            toast(`Download started: ${note.title}`);
+          };
+        };
+      })();
+    </script>
+    <script>
+      (() => {
+        const form = document.querySelector('#uploadForm');
+        const fileInput = document.querySelector('#uploadFile');
+        const status = document.querySelector('#uploadStatus');
+        const name = document.querySelector('#uploadFileName');
+        const percent = document.querySelector('#uploadPercent');
+        const bar = document.querySelector('#uploadProgressBar');
+        const message = document.querySelector('#uploadMessage');
+        const formatSize = bytes => bytes < 1024 * 1024 ? `${Math.ceil(bytes / 1024)} KB` : `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+        const setProgress = (value, text) => { status.hidden = false; percent.textContent = `${value}%`; bar.style.width = `${value}%`; message.textContent = text; };
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files[0];
+          if (!file) return;
+          name.textContent = `${file.name} (${formatSize(file.size)})`;
+          setProgress(0, 'Ready to upload');
+        });
+        form.onsubmit = event => {
+          event.preventDefault();
+          const data = new FormData(form), file = data.get('file');
+          if (!file || !file.size) return;
+          name.textContent = `${file.name} (${formatSize(file.size)})`;
+          setProgress(0, 'Uploading your PDF…');
+          const reader = new FileReader();
+          reader.onprogress = progress => {
+            if (progress.lengthComputable) setProgress(Math.max(1, Math.round((progress.loaded / progress.total) * 100)), `Uploading ${formatSize(progress.loaded)} of ${formatSize(progress.total)}`);
+          };
+          reader.onload = () => {
+            setProgress(100, 'Upload complete — note is now visible to students.');
+            const uploadedNote = { id: Date.now(), title: data.get('title'), semester: data.get('semester'), subject: data.get('subject'), unit: data.get('unit'), detail: 'Newly uploaded study material', pages: 'New', popularity: 100, file, fileData: reader.result };
+            notes.unshift(uploadedNote);
+            try {
+              const persistentNotes = notes.filter(note => note.fileData).map(({ file, ...note }) => note);
+              localStorage.setItem('aktu-notes-library', JSON.stringify(persistentNotes));
+            } catch {
+              toast('Note uploaded, but this PDF is too large for browser storage.');
+            }
+            renderNotes();
+            setTimeout(() => { document.querySelector('#adminDialog').close(); form.reset(); }, 850);
+            toast('Note uploaded successfully.');
+          };
+          reader.onerror = () => { setProgress(0, 'Upload could not be completed. Please try again.'); };
+          reader.readAsDataURL(file);
+        };
+      })();
+    </script>
+    <script>
+      /* Local password gate and IndexedDB file store: browser-local, large-PDF capable. */
+      (() => {
+        const expectedHash = '8c707134e105a457304f9ec9fe143f2a668de5800ed58b086ffd5c68554ebfe9';
+        const salt = 'aktu-notes-admin-v1';
+        const authDialog = document.querySelector('#adminAuthDialog');
+        const adminDialog = document.querySelector('#adminDialog');
+        const authForm = document.querySelector('#adminAuthForm');
+        const passwordInput = document.querySelector('#adminPassword');
+        const authError = document.querySelector('#adminAuthError');
+        const dbReady = new Promise((resolve, reject) => {
+          const request = indexedDB.open('AKTUNotesLibrary', 1);
+          request.onupgradeneeded = () => request.result.createObjectStore('notes', { keyPath: 'id' });
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error);
+        });
+        const loadNotes = async () => {
+          try {
+            const db = await dbReady;
+            const transaction = db.transaction('notes', 'readonly');
+            const request = transaction.objectStore('notes').getAll();
+            request.onsuccess = () => {
+              const persisted = request.result || [];
+              if (persisted.length) { notes = [...persisted, ...notes.filter(note => !persisted.some(item => item.id === note.id))]; renderNotes(); }
+            };
+          } catch { toast('Browser storage is unavailable.'); }
+        };
+        const storeNote = async note => {
+          const db = await dbReady;
+          return new Promise((resolve, reject) => {
+            const request = db.transaction('notes', 'readwrite').objectStore('notes').put(note);
+            request.onsuccess = resolve; request.onerror = () => reject(request.error);
+          });
+        };
+        loadNotes();
+        document.querySelectorAll('.admin-trigger').forEach(button => button.onclick = () => {
+          if (sessionStorage.getItem('aktu-admin-auth') === '1') { renderManager(); adminDialog.showModal(); }
+          else { authError.hidden = true; passwordInput.value = ''; authDialog.showModal(); passwordInput.focus(); }
+        });
+        authForm.onsubmit = async event => {
+          event.preventDefault();
+          const bytes = new TextEncoder().encode(`${salt}:${passwordInput.value}`);
+          const digest = await crypto.subtle.digest('SHA-256', bytes);
+          const actualHash = Array.from(new Uint8Array(digest)).map(byte => byte.toString(16).padStart(2, '0')).join('');
+          if (actualHash !== expectedHash) { authError.textContent = 'Incorrect password. Please try again.'; authError.hidden = false; return; }
+          sessionStorage.setItem('aktu-admin-auth', '1'); authDialog.close(); renderManager(); adminDialog.showModal();
+        };
+        const form = document.querySelector('#uploadForm');
+        form.onsubmit = async event => {
+          event.preventDefault();
+          const data = new FormData(form), file = data.get('file');
+          if (!file || !file.size) return;
+          const status = document.querySelector('#uploadStatus');
+          const bar = document.querySelector('#uploadProgressBar');
+          const percent = document.querySelector('#uploadPercent');
+          const message = document.querySelector('#uploadMessage');
+          const fileName = document.querySelector('#uploadFileName');
+          status.hidden = false; fileName.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`; bar.style.width = '35%'; percent.textContent = '35%'; message.textContent = 'Saving your PDF securely in browser storage…';
+          const note = { id: Date.now(), title: data.get('title'), semester: data.get('semester'), subject: data.get('subject'), unit: data.get('unit'), detail: 'Uploaded study material', pages: 'PDF', popularity: 100, file };
+          try {
+            await storeNote(note);
+            notes.unshift(note); renderNotes(); bar.style.width = '100%'; percent.textContent = '100%'; message.textContent = 'Upload complete — your note persists after refresh.';
+            toast('Note uploaded successfully.');
+            setTimeout(() => { adminDialog.close(); form.reset(); }, 900);
+          } catch { bar.style.width = '0'; percent.textContent = '0%'; message.textContent = 'Storage failed. Check available browser storage and retry.'; }
+        };
+        const originalOpenNote = openNote;
+        openNote = function (id) {
+          originalOpenNote(id);
+          const note = notes.find(item => item.id === Number(id));
+          const download = document.querySelector('#downloadNote');
+          if (!note || !download) return;
+          download.onclick = () => {
+            const blob = note.file || new Blob([`Note: ${note.title}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = Object.assign(document.createElement('a'), { href: url, download: note.file?.name || `${note.title}.txt` });
+            link.click(); setTimeout(() => URL.revokeObjectURL(url), 600); toast(`Download started: ${note.title}`);
+          };
+        };
+      })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-app.js"></script>
+  </body>
+</html>
