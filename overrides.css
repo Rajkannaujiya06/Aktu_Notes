@@ -43,10 +43,7 @@
 .upload-status { padding: 10px; border: 1px solid #d5e4cf; border-radius: 7px; background: #f4faf0; }.upload-status > div:first-child { display: flex; justify-content: space-between; gap: 10px; color: #365740; font-size: 10px; }.upload-status b { color: #4d834a; }.upload-status small { display: block; margin-top: 5px; color: #758277; font-size: 9px; }.upload-progress { height: 6px; margin-top: 7px; overflow: hidden; border-radius: 999px; background: #dce9d7; }.upload-progress i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #77ae69, #2e745b); transition: width .18s ease; }
 .admin-auth-modal { width: min(400px, calc(100% - 30px)); }.admin-auth-error { margin: 0; color: #b24f43; font-size: 11px; }
 .resend-confirmation { border: 0; background: none; color: #315448; cursor: pointer; font: 700 11px var(--sans); text-align: left; text-decoration: underline; }
-<<<<<<< HEAD
-=======
 .admin-trigger[hidden] { display: none !important; }
->>>>>>> 05c51aa (Upload AKTU notes website)
 dialog #toast { position: fixed; z-index: 10; }
 .curriculum-manager { margin-top: 22px; border: 1px solid #dbe4d5; border-radius: 9px; padding: 12px; background: #f5f9f2; }
 .curriculum-manager summary { display: flex; justify-content: space-between; cursor: pointer; font: 800 12px var(--sans); }
